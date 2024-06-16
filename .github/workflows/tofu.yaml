@@ -21,7 +21,7 @@ jobs:
           AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
         with:
           aws-region: 'us-west-2'
-          role-to-assume: "arn:aws:iam::$AWS_ACCOUNT_ID:role/victor-hobby-github"
+          role-to-assume: "arn:aws:iam::975050125701:role/victor-hobby-github"
           role-skip-session-tagging: true
       - name: OpenTofu - Setup Tofu
         uses: opentofu/setup-opentofu@v1.0.3
