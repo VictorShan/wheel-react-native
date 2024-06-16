@@ -5,8 +5,13 @@ terraform {
       version = "~> 5.54"
     }
   }
-}
 
+  backend "s3" {
+    bucket = "tofu-state-camelote"
+    key = "wheel-react-native/dev.tfstate"
+    region = "us-west-2"
+  }
+}
 
 variable "stage_prefix" {
   type     = string

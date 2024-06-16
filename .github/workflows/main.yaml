@@ -27,7 +27,7 @@ jobs:
         with:
             tofu_version: 1.7.2
       - name: Initialize Tofu
-        run: tofu init
+        run: tofu init -backend-config="key=${{ github.event.repository.name }}/prod.tfstate"
       - name: OpenTofu fmt
         id: fmt
         run: tofu fmt -check
