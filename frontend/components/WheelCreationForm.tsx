@@ -1,5 +1,5 @@
-import { Controller, useForm } from "react-hook-form";
-import { StyleSheet, View, TextInput, Text, Button } from "react-native";
+import { Controller, useForm } from 'react-hook-form';
+import { StyleSheet, View, TextInput, Text, Button } from 'react-native';
 
 type Inputs = {
   lobbyName: string;
@@ -7,11 +7,15 @@ type Inputs = {
 };
 
 export default function WheelCreationForm() {
-  const { control, handleSubmit, formState: { errors } } = useForm<Inputs>({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>({
     defaultValues: {
-      lobbyName: "",
-      description: "",
-    }
+      lobbyName: '',
+      description: '',
+    },
   });
   const onSubmit = (data: Inputs) => console.log(data);
   return (
@@ -48,7 +52,11 @@ export default function WheelCreationForm() {
           />
         )}
       />
-      {errors.lobbyName && <Text style={{marginTop: 5, color: "red"}}>Wheel Name is required</Text>}
+      {errors.lobbyName && (
+        <Text style={{ marginTop: 5, color: 'red' }}>
+          Wheel Name is required
+        </Text>
+      )}
       <View style={{ marginTop: 10 }}>
         <Button title="Create Wheel" onPress={handleSubmit(onSubmit)} />
       </View>
@@ -58,23 +66,23 @@ export default function WheelCreationForm() {
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: "center",
-    alignItems: "center",
-    borderColor: "black",
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderColor: 'black',
     borderWidth: 1,
     padding: 25,
   },
   title: {
     fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 20
+    fontWeight: 'bold',
+    marginBottom: 20,
   },
   input: {
     fontSize: 14,
-    borderColor: "black",
+    borderColor: 'black',
     borderWidth: 1,
     padding: 5,
     marginVertical: 5,
-    width: 250
+    width: 250,
   },
-})
+});
