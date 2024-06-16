@@ -13,20 +13,27 @@ jobs:
         with:
             tofu_version: 1.7.2
       - name: Initialize Tofu
-        run: cd infra && tofu init
-      - id: plan
-        run: tofu plan -no-color
-      - run: echo ${{ steps.plan.outputs.stdout }}
-      - run: echo ${{ steps.plan.outputs.stderr }}
-      - run: echo ${{ steps.plan.outputs.exitcode }}
+        working-directory: ./infra
+        run: tofu init
       - run: pwd
+        working-directory: ./infra
       - name: OpenTofu fmt
         id: fmt
         run: tofu fmt -check
         continue-on-error: true
+        working-directory: ./infra
       - name: OpenTofu Validate
         id: validate
+        working-directory: ./infra
         run: tofu validate -no-color
+      - name: OpenTofu Plan
+        id: plan
+        working-directory: ./infra
+        run: tofu plan -no-color
+        continue-on-error: true
+      - run: echo ${{ steps.plan.outputs.stdout }}
+      - run: echo ${{ steps.plan.outputs.stderr }}
+      - run: echo ${{ steps.plan.outputs.exitcode }}
       - uses: actions/github-script@v6
         if: github.event_name == 'pull_request'
         env:
