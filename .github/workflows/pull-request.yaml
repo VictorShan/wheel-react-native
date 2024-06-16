@@ -30,7 +30,7 @@ jobs:
             tofu_version: 1.7.2
       - name: Initialize Tofu
         id: init
-        run: tofu init
+        run: tofu init -cloud=false
       - name: OpenTofu fmt
         id: fmt
         run: tofu fmt -check
@@ -45,8 +45,10 @@ jobs:
         if: steps.plan.outcome == 'success'
         run: tofu apply -no-color -var "stage_prefix=${{ env.STAGE_PREFIX }}" -auto-approve
       - name: Run Integration Tests
+        id: integration_tests
         run: echo "There are currently no integration tests to run."
       - name: Cleanup Infrastructure
+        id: cleanup_infrastructure
         if: steps.apply.outcome == 'success'
         run: tofu destroy -auto-approve -var "stage_prefix=${{ env.STAGE_PREFIX }}"
       - name: Comment on PR
@@ -99,7 +101,7 @@ jobs:
 
             </details>
 
-            #### Integration Tests 🧪\`${{ steps.integration_tests.outcome }}\
+            #### Integration Tests 🧪\`${{ steps.integration_tests.outcome }}\`
 
             <details><summary>Integration Tests Output</summary>
 
@@ -109,7 +111,7 @@ jobs:
 
             </details>
 
-            #### Cleanup Infrastructure 🧹\`${{ steps.cleanup_infrastructure.outcome }}\
+            #### Cleanup Infrastructure 🧹\`${{ steps.cleanup_infrastructure.outcome }}\`
 
             <details><summary>Cleanup Output</summary>
 
