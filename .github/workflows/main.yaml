@@ -1,0 +1,39 @@
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy-infra:
+    defaults:
+      run:
+        working-directory: ./infra
+    permissions:
+      pull-requests: write
+      id-token: write # This is required for requesting the JWT
+      contents: read  # This is required for actions/checkout
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: 'us-west-2'
+          role-to-assume: "arn:aws:iam::975050125701:role/victor-hobby-github"
+          role-skip-session-tagging: true
+      - name: OpenTofu - Setup Tofu
+        uses: opentofu/setup-opentofu@v1.0.3
+        with:
+            tofu_version: 1.7.2
+      - name: Initialize Tofu
+        run: tofu init
+      - name: OpenTofu fmt
+        id: fmt
+        run: tofu fmt -check
+      - name: OpenTofu Validate
+        id: validate
+        working-directory: ./infra
+        run: tofu validate -no-color
+      - name: OpenTofu Apply
+        id: apply
+        run: tofu apply -no-color -var="stage_prefix=prod"
