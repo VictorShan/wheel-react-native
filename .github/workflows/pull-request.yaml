@@ -39,7 +39,7 @@ jobs:
         run: tofu validate -no-color
       - name: OpenTofu Plan
         id: plan
-        run: tofu plan -no-color -var "stage_prefix=${{ env.STAGE_PREFIX }}"
+        run: tofu plan -no-color -var "stage_prefix=${{ env.STAGE_PREFIX }}" -refresh=false
       - name: OpenTofu Apply
         id: apply
         if: steps.plan.outcome == 'success'
