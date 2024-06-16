@@ -1,3 +1,6 @@
+name: Pull Request
+env:
+  STAGE_PREFIX: "pr${{ github.event.pull_request.id }}"
 on:
   pull_request:
     branches:
@@ -37,12 +40,12 @@ jobs:
         run: tofu validate -no-color
       - name: OpenTofu Plan
         id: plan
-        run: tofu plan -no-color
+        run: tofu plan -no-color -var="stage_prefix=pr${{ env.STAGE_PREFIX}}"
         continue-on-error: true
       - name: OpenTofu Apply
         id: apply
         if: steps.plan.outcome == 'success'
-        run: tofu apply -no-color -var="stage_prefix=pr${{ github.event.pull_request.id }}"
+        run: tofu apply -no-color -var="stage_prefix=pr${{ env.STAGE_PREFIX}}" -auto-approve
         continue-on-error: true
       - name: Run Integration Tests
         run: echo "There are currently no integration tests to run."
@@ -94,4 +97,7 @@ jobs:
               repo: context.repo.repo,
               body: output
             })
+      - name: Cleanup
+        if: steps.apply.outcome == 'success'
+        run: tofu destroy -auto-approve -var="stage_prefix=pr${{ env.STAGE_PREFIX}}"
 
