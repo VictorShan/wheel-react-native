@@ -55,6 +55,13 @@ jobs:
           cache-dependency-path: ./frontend/package-lock.json
           node-version: 20.x
           cache: npm
+      - name: 📦 Install dependencies
+        run: npm install
+      - name: 🏗 Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_ACCESS_TOKEN }}
   deploy-app:
     needs: setup-node
     defaults:
@@ -62,13 +69,6 @@ jobs:
         working-directory: ./frontend
     runs-on: ubuntu-latest
     steps:
-      - name: 🏗 Setup EAS
-        uses: expo/expo-github-action@v8
-        with:
-          eas-version: latest
-          token: ${{ secrets.EXPO_ACCESS_TOKEN }}
-      - name: 📦 Install dependencies
-        run: npm install
       - name: 🚀 Create update
         run: eas update --auto --non-interactive
   deploy-web:
@@ -80,6 +80,20 @@ jobs:
         working-directory: ./frontend
     runs-on: ubuntu-latest
     steps:
+      - name: Generate Artificats
+        id: generate-artifacts
+        run: npx expo export -p web
+      - name: Upload Artifacts
+        id: upload-artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          path: ./frontend/dist
+          name: github-pages
       - name: Deploy to GitHub Pages
         id: deployment
-        run: npm run deploy
+        uses: actions/deploy-pages@v4
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+
