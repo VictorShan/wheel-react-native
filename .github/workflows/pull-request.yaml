@@ -156,12 +156,24 @@ jobs:
   deploy-web:
     needs: setup-node
     permissions:
-      contents: write
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: https://victor-hobby.github.io/wheel-react-native/
     defaults:
       run:
         working-directory: ./frontend
     runs-on: ubuntu-latest
     steps:
+      - name: Generate Artificats
+        id: generate-artifacts
+        run: npm run predeploy
+      - name: Upload Artifacts
+        id: upload-artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          path: ./frontend/dist
       - name: Deploy to GitHub Pages
-        id: deployment
-        run: npm run deploy
+        id: web-deployment
+        uses: actions/deploy-pages@v4
