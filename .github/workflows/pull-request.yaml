@@ -162,6 +162,8 @@ jobs:
         working-directory: frontend
     runs-on: ubuntu-latest
     steps:
+      - name: Working Directory
+        run: echo "Working Directory is $(pwd)"
       - name: Deploy to GitHub Pages
         id: deployment
         run: |
