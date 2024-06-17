@@ -164,4 +164,6 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        run: npm run deploy
+        run: |
+          pwd
+          npm run deploy
