@@ -157,10 +157,11 @@ jobs:
     needs: setup-node
     permissions:
       contents: write
+    defaults:
+      run:
+        working-directory: ./frontend
     runs-on: ubuntu-latest
     steps:
-      - name: Working Directory
-        run: echo ${{ github.workspace }}
       - name: Deploy to GitHub Pages
         id: deployment
         run: npm run deploy
