@@ -41,8 +41,16 @@ jobs:
       - name: OpenTofu Apply
         id: apply
         run: tofu apply -no-color -var="stage_prefix=prod" -auto-approve
+  deploy-app:
+    defaults:
+      run:
+        working-directory: ./frontend
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
       - name: 🏗 Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4.0.2
         with:
           node-version: 18.x
           cache: yarn
