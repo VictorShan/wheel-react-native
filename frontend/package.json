@@ -10,7 +10,7 @@
     "web": "expo start --web",
     "test": "jest --watchAll",
     "lint": "expo lint",
-    "deploy": "gh-pages -t -d dist",
+    "deploy": "gh-pages -t -d dist -r https://github.com/victor-hobby/wheel-react-native",
     "predeploy": "expo export -p web"
   },
   "jest": {

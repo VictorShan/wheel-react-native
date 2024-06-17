@@ -159,7 +159,7 @@ jobs:
       contents: write
     defaults:
       run:
-        working-directory: ../frontend
+        working-directory: ./frontend
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to GitHub Pages
