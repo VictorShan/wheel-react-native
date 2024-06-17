@@ -159,13 +159,11 @@ jobs:
       contents: write
     defaults:
       run:
-        working-directory: frontend
+        working-directory: ./frontend
     runs-on: ubuntu-latest
     steps:
       - name: Working Directory
-        run: pwd
+        run: echo ${{ github.workspace }}
       - name: Deploy to GitHub Pages
         id: deployment
-        run: |
-          pwd
-          npm run deploy
+        run: npm run deploy
