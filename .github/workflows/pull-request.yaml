@@ -164,6 +164,8 @@ jobs:
         with:
           eas-version: latest
           token: ${{ secrets.EXPO_ACCESS_TOKEN }}
+      - name: 📦 Install dependencies
+        run: npm install
       - name: Generate Artificats
         id: generate-artifacts
         run: npx expo export -p web
