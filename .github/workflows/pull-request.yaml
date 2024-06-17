@@ -163,7 +163,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Working Directory
-        run: echo "Working Directory is $(pwd)"
+        run: echo $(pwd)
       - name: Deploy to GitHub Pages
         id: deployment
         run: |
