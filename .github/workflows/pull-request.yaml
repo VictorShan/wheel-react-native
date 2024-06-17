@@ -166,7 +166,7 @@ jobs:
           token: ${{ secrets.EXPO_ACCESS_TOKEN }}
       - name: Generate Artificats
         id: generate-artifacts
-        run: expo export -p web
+        run: npx expo export -p web
       - name: Upload Artifacts
         id: upload-artifacts
         uses: actions/upload-artifact@v2
