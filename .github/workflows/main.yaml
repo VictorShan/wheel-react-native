@@ -41,3 +41,17 @@ jobs:
       - name: OpenTofu Apply
         id: apply
         run: tofu apply -no-color -var="stage_prefix=prod" -auto-approve
+      - name: 🏗 Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: yarn
+      - name: 🏗 Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_ACCESS_TOKEN }}
+      - name: 📦 Install dependencies
+        run: yarn install
+      - name: 🚀 Create update
+        run: eas update --auto --non-interactive
