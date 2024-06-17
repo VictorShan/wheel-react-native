@@ -139,28 +139,3 @@ jobs:
                 body: output
               })
             }
-  deploy-app:
-    defaults:
-      run:
-        working-directory: ./frontend
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: 🏗 Setup Node
-        uses: actions/setup-node@v4.0.2
-        with:
-          cache-dependency-path: ./frontend/package-lock.json
-          node-version: 20.x
-          cache: npm
-      - name: 🏗 Setup EAS
-        uses: expo/expo-github-action@v8
-        with:
-          eas-version: latest
-          token: ${{ secrets.EXPO_ACCESS_TOKEN }}
-      - name: 📦 Install dependencies
-        run: npm install
-      - name: 🚀 Create update
-        run: eas update --auto --non-interactive
-
-
