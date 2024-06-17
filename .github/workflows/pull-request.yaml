@@ -160,7 +160,7 @@ jobs:
       id-token: write
     environment:
       name: github-pages
-      url: https://victor-hobby.github.io/wheel-react-native/
+      url: ${{ steps.deployment.outputs.web-url }}
     defaults:
       run:
         working-directory: ./frontend
@@ -175,5 +175,5 @@ jobs:
         with:
           path: ./frontend/dist
       - name: Deploy to GitHub Pages
-        id: web-deployment
+        id: deployment
         uses: actions/deploy-pages@v4
