@@ -157,9 +157,6 @@ jobs:
     needs: setup-node
     permissions:
       contents: write
-    defaults:
-      run:
-        working-directory: ./frontend
     runs-on: ubuntu-latest
     steps:
       - name: Working Directory
