@@ -166,7 +166,7 @@ jobs:
           token: ${{ secrets.EXPO_ACCESS_TOKEN }}
       - name: 📦 Install dependencies
         run: npm install
-      - name: Generate Artificats
+      - name: Generate Artifacts
         id: generate-artifacts
         run: npx expo export -p web
       - name: Upload Artifacts

@@ -81,7 +81,7 @@ jobs:
         working-directory: ./frontend
     runs-on: ubuntu-latest
     steps:
-      - name: Generate Artificats
+      - name: Generate Artifacts
         id: generate-artifacts
         run: npx expo export -p web
       - name: Upload Artifacts
