@@ -1,6 +1,7 @@
 import { Stack } from 'expo-router';
 import { useEffect } from 'react';
 import * as Updates from 'expo-updates';
+import { Platform } from 'react-native';
 
 export default function RootLayout() {
   async function onFetchUpdateAsync() {
@@ -17,7 +18,9 @@ export default function RootLayout() {
   }
 
   useEffect(() => {
-    onFetchUpdateAsync();
+    if (Platform.OS !== 'web') {
+      onFetchUpdateAsync();
+    }
   }, []);
 
   return (
