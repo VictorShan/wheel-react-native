@@ -7,7 +7,7 @@ export default function WheelPage() {
 
   return (
     <SafeAreaView>
-      <Stack.Screen options={{ title: `Wheel ${localParams.wheel}` }} />
+      <Stack.Screen options={{ title: `${localParams.wheel}` }} />
       <Text>Lobby {localParams.wheel}</Text>
     </SafeAreaView>
   );

@@ -1,7 +1,7 @@
 import { Stack } from 'expo-router';
 import { useEffect } from 'react';
 import * as Updates from 'expo-updates';
-import { Platform } from 'react-native';
+import { Platform, Text, View } from 'react-native';
 import {
   DarkTheme,
   DefaultTheme,
@@ -32,9 +32,39 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
+      <Stack
+        screenOptions={{
+          headerTitleAlign: 'center',
+          headerTitle: (props) => <HeaderTitle {...props} />,
+        }}
+      >
         <Stack.Screen name="Spin the Wheel" />
       </Stack>
     </ThemeProvider>
+  );
+}
+
+function HeaderTitle({
+  children,
+  tintColor,
+}: {
+  children: string;
+  tintColor?: string;
+}) {
+  return (
+    <View
+      style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
+    >
+      <Text
+        style={{
+          color: tintColor,
+          fontSize: 20,
+          fontWeight: 'bold',
+          marginRight: 10,
+        }}
+      >
+        {children}
+      </Text>
+    </View>
   );
 }
