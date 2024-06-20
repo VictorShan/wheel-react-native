@@ -1,3 +1,4 @@
+import { useRouter } from 'expo-router';
 import { Controller, useForm } from 'react-hook-form';
 import { StyleSheet, View, TextInput, Text, Button } from 'react-native';
 
@@ -17,7 +18,14 @@ export default function WheelCreationForm() {
       description: '',
     },
   });
-  const onSubmit = (data: Inputs) => console.log(data);
+  const router = useRouter();
+  const onSubmit = (data: Inputs) => {
+    // Debugging
+    console.log(data);
+    // Check auth and that lobby is available
+    // Go to the wheel page
+    router.push(`/wheel/${data.lobbyName}`);
+  };
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Create a Wheel</Text>
