@@ -51,6 +51,7 @@ function HeaderTitle({
   children: string;
   tintColor?: string;
 }) {
+  document.title = children;
   return (
     <View
       style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
